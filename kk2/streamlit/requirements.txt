@@ -1,4 +1,1 @@
 streamlit
-streamlit_drawable_canvas
-opencv
-cv2
