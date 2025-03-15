@@ -1,23 +1,23 @@
 import streamlit as st
 
-
-if "option" in st.session_state:
-    st.session_state.option = st.session_state.option
-
-if "color" in st.session_state:
-    st.session_state.color = st.session_state.color
-
-if "name" in st.session_state:
-    st.session_state.name = st.session_state.name
- 
+st.markdown(
+    """
+    <style>
+    html, body {
+        font-size: 18px;            
+    }
+    a {font-size: 20px;}
+    </style>
+    """,
+    unsafe_allow_html=True
+)
 
 # Define the pages
-page_1 = st.Page("page_1.py", title="Page 1", icon="📗")
-page_2 = st.Page("page_2.py", title="Page 2", icon="📘")
-page_3 = st.Page("page_3.py", title="About project", icon="📙")
+page_1 = st.Page("page_1.py", title="About project", icon=":material/home:")
+page_2 = st.Page("page_2.py", title="App demo", icon=":material/draw:")
 
 # Set up navigation
-pg = st.navigation([page_1, page_2, page_3])
+pg = st.navigation([page_1, page_2])
 
 # Run the selected page
 pg.run()
