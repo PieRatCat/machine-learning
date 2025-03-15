@@ -25,7 +25,7 @@ st.markdown('''This project demonstrates a machine learning model,
 
 
 
-if st.button(":material/arrow_circle_right: Try it here", type="secondary"):
+if st.button(":material/arrow_circle_right: Try the demo", type="secondary"):
     st.session_state.page_to_switch = "page_2.py"
     st.switch_page(st.session_state.page_to_switch)
 
@@ -39,3 +39,5 @@ st.markdown('The canvas component used in the app is <a href="https://github.com
 st.subheader('About the author')
 
 st.markdown('This project was created by Amanda Sumner for a machine learning course in March 2025.')
+
+st.link_button("Find me here", "https://linktr.ee/PieRatCat")
