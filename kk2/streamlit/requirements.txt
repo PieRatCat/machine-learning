@@ -1,0 +1,5 @@
+streamlit
+pickle
+cv2
+json
+os
