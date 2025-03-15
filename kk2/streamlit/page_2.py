@@ -1,9 +1,10 @@
 import streamlit as st
 from streamlit_drawable_canvas import st_canvas
 import pickle
-import cv2
 import json
 import os
+from PIL import Image, ImageOps
+import numpy as np
 
 st.markdown(
     """
@@ -17,7 +18,6 @@ st.markdown(
     unsafe_allow_html=True
 )
 st.header('Handwritten digit recognition', divider="rainbow")
-
 
 # Load the trained model
 with open('../models/xgb_model_mnist.pkl', 'rb') as file:
@@ -38,13 +38,9 @@ def save_feedback(feedback):
             json.dump(feedback, f)
     except Exception as e:
         print(f"Error saving feedback: {e}")
-    
 
-    
 st.markdown('''Draw a digit between 0 and 9. For best results, draw one digit at a time, try to use the entire canvas and center the digit. 
             Use the buttons under the canvas to erase or undo the last stroke. The accuracy of the result will vary depending on your handwriting style.''') 
-
-
 
 canvas_result = st_canvas(
     stroke_width=20,
@@ -56,22 +52,21 @@ canvas_result = st_canvas(
 )
 
 if canvas_result.image_data is not None:
-    gray_image = cv2.cvtColor(canvas_result.image_data, cv2.COLOR_RGBA2GRAY)
-    resized_image = cv2.resize(gray_image, (28, 28), interpolation=cv2.INTER_AREA) 
-    inverted_image = 255 - resized_image
-    normalized_image = inverted_image.astype('float32') / 255.0
+    img = Image.fromarray(canvas_result.image_data.astype('uint8'), 'RGBA')
+    gray_image = img.convert('L') # Convert to grayscale
+    resized_image = gray_image.resize((28, 28), Image.Resampling.LANCZOS) # Resize
+    inverted_image = ImageOps.invert(resized_image) # Invert
+    normalized_image = np.array(inverted_image).astype('float32') / 255.0 # Normalize
     flattened_image = normalized_image.reshape(1, 784)
     
     prediction = model.predict(flattened_image)
         
     st.markdown(f"<p style='font-size: 30px;'>You wrote: {prediction[0]}</p>", unsafe_allow_html=True)
-    
 
 # Feedback buttons and counts
 
 if "feedback_counts" not in st.session_state:
     st.session_state.feedback_counts = load_feedback()
-
 
 if "feedback_counts" not in st.session_state:
     st.session_state.feedback_counts = {"thumbs_up": 0, "thumbs_down": 0}
@@ -88,4 +83,3 @@ with middle:
         st.session_state.feedback_counts["thumbs_down"] += 1
         save_feedback(st.session_state.feedback_counts) 
     st.write(f"Incorrect: {st.session_state.feedback_counts['thumbs_down']}")
-
