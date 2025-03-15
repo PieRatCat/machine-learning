@@ -20,7 +20,7 @@ st.markdown(
 st.header('Handwritten digit recognition', divider="rainbow")
 
 # Load the trained model
-with open('../models/xgb_model_mnist.pkl', 'rb') as file:
+with open('xgb_model_mnist.pkl', 'rb') as file:
     model = pickle.load(file)
     
 FEEDBACK_FILE = "feedback.json"
