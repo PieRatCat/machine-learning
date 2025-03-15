@@ -12,6 +12,9 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
+RUN python3 -c "import cv2; print(cv2.__version__)"
+
 COPY . .
 
 CMD ["streamlit", "run", "streamlit_app.py"]
+
