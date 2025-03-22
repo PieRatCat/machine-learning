@@ -1,7 +1,7 @@
 Files for kunskapskontroll 2, machine learning course
 
 
-[streamlit app repository](https://github.com/PieRatCat/ml-streamlit) with up to date code that has been deployed to Heroku
+[streamlit app repository](https://github.com/PieRatCat/ml-streamlit) with up to date code that has been deployed to Streamlit Cloud.
 
 The deployed app can be found at http://streamlit.goblinsen.se/
 
