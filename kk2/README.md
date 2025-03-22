@@ -1,5 +1,6 @@
 Files for kunskapskontroll 2, machine learning course
 
+Project report: ml_project_report_svenska.pdf
 
 [streamlit app repository](https://github.com/PieRatCat/ml-streamlit) with up to date code that has been deployed to Streamlit Cloud.
 
